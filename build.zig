@@ -13,7 +13,8 @@ pub fn build(b: *std.build.Builder) void {
     obj.linkLibC();
     obj.setLibCFile(std.build.FileSource{ .path = "libc.txt" });
     obj.addIncludeDir(devkitpro ++ "/libnds/include");
-    obj.addIncludeDir(devkitpro ++ "/portlibs/libnds/include");
+    obj.addIncludeDir(devkitpro ++ "/portlibs/nds/include");
+    obj.addIncludeDir(devkitpro ++ "/portlibs/armv5te/include");
     obj.setTarget(.{
         .cpu_arch = .thumb,
         .os_tag = .freestanding,
@@ -31,7 +32,8 @@ pub fn build(b: *std.build.Builder) void {
         "-specs=" ++ devkitpro ++ "/devkitARM/arm-none-eabi/lib/ds_arm9.specs",
         "zig-out/zig-nds.o",
         "-L" ++ devkitpro ++ "/libnds/lib",
-        "-L" ++ devkitpro ++ "/portlibs/libnds/lib",
+        "-L" ++ devkitpro ++ "/portlibs/nds/lib",
+        "-L" ++ devkitpro ++ "/portlibs/armv5te/lib",
     } ++ flags ++ .{
         "-o",
         "zig-out/zig-nds.elf",
